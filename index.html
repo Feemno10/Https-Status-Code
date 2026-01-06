@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTP Status Codes | Ultra UI</title>
+
+<style>
+/* ================= ROOT ================= */
+:root{
+--bg:#020617;
+--glass:rgba(15,23,42,.55);
+--border:rgba(255,255,255,.08);
+--text:#e5e7eb;
+--muted:#94a3b8;
+
+--info:#38bdf8;
+--success:#22c55e;
+--warn:#facc15;
+--error:#ef4444;
+}
+
+/* ================= RESET ================= */
+*{
+box-sizing:border-box;
+font-family:'Inter','Segoe UI',system-ui;
+}
+
+body{
+margin:0;
+min-height:100vh;
+background:
+radial-gradient(circle at 20% 10%,#0f172a 0%,transparent 40%),
+radial-gradient(circle at 80% 0%,#020617 0%,transparent 40%),
+#000;
+color:var(--text);
+padding:60px 20px;
+overflow-x:hidden;
+}
+
+/* ================= HEADER ================= */
+header{
+text-align:center;
+margin-bottom:80px;
+animation:fadeDown 1.1s ease;
+}
+
+header h1{
+font-size:3.4rem;
+margin:0;
+letter-spacing:1px;
+background:linear-gradient(90deg,#38bdf8,#22c55e,#facc15,#ef4444);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+header p{
+margin-top:15px;
+font-size:1.15rem;
+color:var(--muted);
+}
+
+/* ================= GRID ================= */
+.container{
+max-width:1600px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+gap:35px;
+}
+
+/* ================= CARD ================= */
+.card{
+position:relative;
+background:linear-gradient(
+180deg,
+rgba(255,255,255,.04),
+rgba(255,255,255,.01)
+),var(--glass);
+backdrop-filter:blur(14px);
+border:1px solid var(--border);
+border-radius:26px;
+padding:30px;
+box-shadow:0 30px 80px rgba(0,0,0,.75);
+opacity:0;
+transform:translateY(70px) scale(.92);
+animation:cardReveal .9s forwards;
+transition:all .5s cubic-bezier(.16,1,.3,1);
+}
+
+.card:hover{
+transform:translateY(-18px) scale(1.04);
+box-shadow:0 60px 140px rgba(0,0,0,.9);
+}
+
+.card::after{
+content:"";
+position:absolute;
+inset:-2px;
+border-radius:inherit;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.15),transparent);
+opacity:0;
+transition:.5s;
+pointer-events:none;
+}
+.card:hover::after{opacity:1}
+
+.card{animation-delay:calc(var(--i) * .12s)}
+
+/* ================= BADGE ================= */
+.badge{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:8px 18px;
+border-radius:999px;
+font-weight:700;
+font-size:.85rem;
+margin-bottom:18px;
+letter-spacing:.5px;
+background:rgba(255,255,255,.04);
+border:1px solid var(--border);
+}
+
+.info{color:var(--info);box-shadow:0 0 25px rgba(56,189,248,.4)}
+.success{color:var(--success);box-shadow:0 0 25px rgba(34,197,94,.4)}
+.warn{color:var(--warn);box-shadow:0 0 25px rgba(250,204,21,.4)}
+.error{color:var(--error);box-shadow:0 0 25px rgba(239,68,68,.4)}
+
+.desc{
+color:var(--muted);
+margin-bottom:18px;
+padding-left:14px;
+border-left:3px solid rgba(255,255,255,.1);
+}
+
+/* ================= LIST ================= */
+ul{
+margin:0;
+padding-left:22px;
+}
+
+li{
+margin-bottom:10px;
+line-height:1.7;
+}
+
+code{
+background:rgba(2,6,23,.9);
+padding:4px 9px;
+border-radius:8px;
+color:#38bdf8;
+font-weight:600;
+}
+
+/* ================= FOOTER ================= */
+footer{
+text-align:center;
+margin-top:120px;
+animation:fadeUp 1.2s ease;
+}
+
+.credit{
+font-size:.95rem;
+color:var(--muted);
+margin-bottom:20px;
+}
+
+.credit span{
+color:#38bdf8;
+font-weight:700;
+}
+
+/* ================= SIGNATURE ================= */
+.signature{
+font-family:'Brush Script MT','Segoe Script',cursive;
+font-size:2.4rem;
+letter-spacing:2px;
+background:linear-gradient(90deg,#22c55e,#38bdf8,#facc15);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+animation:signGlow 3s infinite alternate;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes cardReveal{
+to{opacity:1;transform:none}
+}
+@keyframes fadeDown{
+from{opacity:0;transform:translateY(-50px)}
+to{opacity:1;transform:none}
+}
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(50px)}
+to{opacity:1;transform:none}
+}
+@keyframes signGlow{
+from{filter:drop-shadow(0 0 5px rgba(56,189,248,.4))}
+to{filter:drop-shadow(0 0 18px rgba(250,204,21,.8))}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>HTTP Status Codes</h1>
+<p>HTTP Status Code ครบทุกตัว • ภาษาไทย • Ultra UI Animation</p>
+</header>
+
+<section class="container">
+
+<!-- 1xx -->
+<div class="card" style="--i:1">
+<span class="badge info">1xx • Informational</span>
+<p class="desc">สถานะระหว่างการประมวลผลของเซิร์ฟเวอร์</p>
+<ul>
+<li><code>100</code> Continue – ส่งข้อมูลต่อได้</li>
+<li><code>101</code> Switching Protocols</li>
+<li><code>102</code> Processing</li>
+<li><code>103</code> Early Hints</li>
+</ul>
+</div>
+
+<!-- 2xx -->
+<div class="card" style="--i:2">
+<span class="badge success">2xx • Success</span>
+<p class="desc">คำขอถูกต้องและสำเร็จ</p>
+<ul>
+<li><code>200</code> OK</li>
+<li><code>201</code> Created</li>
+<li><code>202</code> Accepted</li>
+<li><code>203</code> Non-Authoritative</li>
+<li><code>204</code> No Content</li>
+<li><code>205</code> Reset Content</li>
+<li><code>206</code> Partial Content</li>
+<li><code>207</code> Multi-Status</li>
+<li><code>208</code> Already Reported</li>
+<li><code>226</code> IM Used</li>
+</ul>
+</div>
+
+<!-- 3xx -->
+<div class="card" style="--i:3">
+<span class="badge warn">3xx • Redirection</span>
+<p class="desc">ต้องเปลี่ยนเส้นทางไปยัง URL อื่น</p>
+<ul>
+<li><code>300</code> Multiple Choices</li>
+<li><code>301</code> Moved Permanently</li>
+<li><code>302</code> Found</li>
+<li><code>303</code> See Other</li>
+<li><code>304</code> Not Modified</li>
+<li><code>307</code> Temporary Redirect</li>
+<li><code>308</code> Permanent Redirect</li>
+</ul>
+</div>
+
+<!-- 4xx -->
+<div class="card" style="--i:4">
+<span class="badge error">4xx • Client Error</span>
+<p class="desc">ข้อผิดพลาดจากฝั่งผู้ใช้</p>
+<ul>
+<li><code>400</code> Bad Request</li>
+<li><code>401</code> Unauthorized</li>
+<li><code>403</code> Forbidden</li>
+<li><code>404</code> Not Found</li>
+<li><code>409</code> Conflict</li>
+<li><code>422</code> Unprocessable Entity</li>
+<li><code>429</code> Too Many Requests</li>
+<li><code>451</code> Legal Reasons</li>
+</ul>
+</div>
+
+<!-- 5xx -->
+<div class="card" style="--i:5">
+<span class="badge error">5xx • Server Error</span>
+<p class="desc">ข้อผิดพลาดจากฝั่งเซิร์ฟเวอร์</p>
+<ul>
+<li><code>500</code> Internal Server Error</li>
+<li><code>501</code> Not Implemented</li>
+<li><code>502</code> Bad Gateway</li>
+<li><code>503</code> Service Unavailable</li>
+<li><code>504</code> Gateway Timeout</li>
+<li><code>511</code> Network Authentication Required</li>
+</ul>
+</div>
+
+</section>
+
+<footer>
+<div class="credit">
+© 2026 HTTP Status Codes UI • Designed & Developed by  
+<span>Feemno10 สุดหล่อ</span>
+</div>
+<div class="signature">
+— Feemno10 —
+</div>
+</footer>
+
+</body>
+</html>
